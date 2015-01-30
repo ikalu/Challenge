@@ -14,11 +14,12 @@ class Scoreboard
     print "\t" if @toss == 1
     special_frame(index)
     if (@toss == 2 or @pins_knocked_down == 10)
-      next_frame(index) if @current_frame != 10
+      next_frame(index) 
     end
   end
 
   def next_frame(index)
+    return if @current_frame == 10
     @frame_score[@current_frame] = @frame_score[@current_frame - 1] + @pins_knocked_down + extra_frame(index)
     print "\t\t#{@frame_score[@current_frame]}"
     puts
@@ -30,8 +31,8 @@ class Scoreboard
 
   def special_frame(index)
     return if @current_frame != 10
-    print "\t#{rolls[index + 1]}" if @toss == 2 and @current_frame == 10 and @pins_knocked_down == 10
-    print "#{rolls[index + 1]}\t#{rolls[index + 2]}\t" if @toss == 1 and @current_frame == 10
+    print "\t#{rolls[index + 1]}" if @toss == 2 and @pins_knocked_down == 10
+    print "#{rolls[index + 1]}\t#{rolls[index + 2]}\t" if @toss == 1
     @frame_score[@current_frame] = @frame_score[@current_frame - 1] + @pins_knocked_down + extra_frame(index)
     puts @frame_score[@current_frame]
     exit
