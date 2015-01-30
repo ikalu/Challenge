@@ -12,20 +12,28 @@ class Scoreboard
     print "X" if (@toss == 1 and @pins_knocked_down == 10)
     print "/" if (@toss == 2 and @pins_knocked_down == 10)
     print "\t" if @toss == 1
+    print "\t#{rolls[index + 1]}" if @toss == 2 and @current_frame == 10 and @pins_knocked_down == 10
+    print "#{rolls[index + 1]}\t#{rolls[index + 2]}\t" if @toss == 1 and @current_frame == 10
+    special_frame(index) if @current_frame == 10
     if (@toss == 2 or @pins_knocked_down == 10)
-      next_frame(index)
+      next_frame(index) if @current_frame != 10
     end
   end
 
   def next_frame(index)
     @frame_score[@current_frame] = @frame_score[@current_frame - 1] + @pins_knocked_down + extra_frame(index)
-    print "\t#{@frame_score[@current_frame]}"
+    print "\t\t#{@frame_score[@current_frame]}"
     puts
     @toss = 0
     @current_frame += 1
-    exit if @current_frame > 10 and @pins_knocked_down != 10
     print "#{@current_frame}\t"
     @pins_knocked_down = 0
+  end
+
+  def special_frame(index)
+    @frame_score[@current_frame] = @frame_score[@current_frame - 1] + @pins_knocked_down + extra_frame(index)
+    print @frame_score[@current_frame]
+    exit
   end
 
   def extra_frame(index)
@@ -45,7 +53,7 @@ class Scoreboard
     @toss = 0
     @pins_knocked_down = 0
 
-    puts "FR\tT1\tT2\tScore"
+    puts "FR\tT1\tT2\tT3\tScore"
     print "#{@current_frame}\t"
 
     rolls.each_index do |index|
