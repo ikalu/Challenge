@@ -27,7 +27,7 @@ class StrCompression
 
       ((i + 1)..((string.length) - 1)).each do |a|
         break if !new_string.end_with?(string[a])
-        counter += 1 if new_string.end_with?(string[a])
+        counter += 1
       end
 
       new_string << counter.to_s if counter != 0
