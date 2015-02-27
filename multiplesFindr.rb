@@ -21,6 +21,5 @@ class Multiples
   end
 
 end
-
 num = Multiples.new
 num.find_multiples
